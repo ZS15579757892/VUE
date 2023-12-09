@@ -1,0 +1,47 @@
+//封装所有的后端接口请求
+import axios from "axios";
+
+//1.进行全局配置
+axios.defaults.baseURL = 'http://127.0.0.1:8000';
+
+// 允许前端携带cookie
+axios.defaults.withCredentials = true;
+
+//2.封装接口请求
+const api = {
+    login(body) {
+        return axios.post('/user/login/',body)
+    },
+    logout() {
+        return axios.get('/user/logout/')
+    },
+    //获取图书列表
+    getBooks() {
+        return axios.get('/books/')
+    },
+
+    //添加图书
+    addBook(body) {
+        return axios.post('/books/',body)
+    },
+
+    //删除图书
+    delBook(bookid) {
+        return axios.delete('/books/', {
+            params: {
+                id:bookid
+            }
+        })
+    },
+
+    //出借图书
+    lendBook(body) {
+        return axios.post('/books/handle/',body)
+    }
+}
+
+
+export default api;
+
+
+
